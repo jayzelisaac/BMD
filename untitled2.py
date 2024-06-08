@@ -24,7 +24,8 @@ def calculate_key(file_path):
 def calculate_bpm(file_path):
     y, sr = librosa.load(file_path)
     # Adjusting parameters for beat tracking
-    tempo, _ = librosa.beat.beat_track(y=y, sr=sr, hop_length=64, tempo=[60, 180])
+    # Using start_bpm as an initial guess for the tempo
+    tempo, _ = librosa.beat.beat_track(y=y, sr=sr, hop_length=64, start_bpm=120)
     return tempo
 
 # Function to handle file selection and display results
@@ -50,4 +51,8 @@ label.pack()
 select_button = tk.Button(root, text="Select File", command=select_file)
 select_button.pack()
 
-result_label = tk.La
+result_label = tk.Label(root, text="")
+result_label.pack()
+
+# Run the application
+root.mainloop()
